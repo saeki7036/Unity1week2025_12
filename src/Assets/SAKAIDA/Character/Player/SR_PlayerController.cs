@@ -126,7 +126,7 @@ public class SR_PlayerController : MonoBehaviour
 
 
     
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (playerAction != PlayerAction.Move) return;
         if (other.CompareTag("Item")) 
@@ -147,6 +147,7 @@ public class SR_PlayerController : MonoBehaviour
             }   
         }
     }
+
     void GetItem(SR_ItemController item) 
     {
         hototogisuPoint += item.itemType.Point;
