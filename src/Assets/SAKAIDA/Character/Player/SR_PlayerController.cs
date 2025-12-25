@@ -14,10 +14,19 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] float speed = 4;
     [SerializeField] float stopDashDirection = 0.2f;
     [SerializeField] float FINISHPOSITION_Y = -5;
+    [SerializeField] float ATTACKEFFECT_EMISION_RATE = 15;
     [SerializeField] float downXmoveSpeed = 3;
     [SerializeField] bool Dash = false;
     [SerializeField] Vector2 TargetPos;
     [SerializeField] List<AudioClip> audioClips = new List<AudioClip>();
+    [SerializeField] GameObject Effect;
+    [SerializeField] ParticleSystem particleSystem;
+    [SerializeField] GameObject AttackEffectObject;
+    Vector2 dashDirection;
+    Vector2 dashStartPos;
+
+    [SerializeField] float dashDistance = 3.0f;
+
 
     public float hototogisuPoint = 0;
 
@@ -40,15 +49,21 @@ public class SR_PlayerController : MonoBehaviour
 
     public void OnNomalAttack(InputAction.CallbackContext context)
     {
-        //Debug.Log("攻撃した");
-        if (context.phase == InputActionPhase.Performed) 
-        {
-            if (playerAction == PlayerAction.Down || playerAction == PlayerAction.NoAction|| playerAction == PlayerAction.Finish) return;
-            SR_AudioManager.instance.isPlaySE(audioClips[0]);
-            TargetPos = cursorController.MousePos;
-            Dash = true;
-        }
+        if (context.phase != InputActionPhase.Performed) return;
+        if (playerAction == PlayerAction.Down ||
+            playerAction == PlayerAction.NoAction ||
+            playerAction == PlayerAction.Finish) return;
+
+        SR_AudioManager.instance.isPlaySE(audioClips[0]);
+
+        // マウス方向を取得
+        Vector2 dir = (Vector2)cursorController.MousePos - (Vector2)transform.position;
+        dashDirection = dir.normalized;
+
+        dashStartPos = transform.position;
+        Dash = true;
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,11 +94,14 @@ public class SR_PlayerController : MonoBehaviour
     }
     void DownAction() 
     {
+        effectSpawnChange(false);
         rb.velocity = new Vector2(downXmoveSpeed,rb.velocity.y);
         rb.gravityScale = 1;
         transform.Rotate(0, 0, 50);
         if (transform.position.y < FINISHPOSITION_Y)
         {
+            rb.gravityScale = 0;
+            rb.velocity = Vector2.zero;
             SR_AudioManager.instance.isPlaySE(audioClips[1]);
             playerAction = PlayerAction.Finish;
         }
@@ -100,20 +118,25 @@ public class SR_PlayerController : MonoBehaviour
         {
             animator.Play("突進");
             gravity = 0;
-            Vector2 targetDirection = (TargetPos - (Vector2)transform.position).normalized;
-            float targetDistanse = (TargetPos - (Vector2)transform.position).magnitude;
-            transform.up = targetDirection;
-            transform.Rotate(0, 0, 90);
-            rb.velocity = targetDirection * speed;
-            if (targetDistanse < stopDashDirection) 
+            rb.velocity = dashDirection * speed;
+
+            float angle = Mathf.Atan2(dashDirection.y, dashDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle + 90f);
+
+            float movedDistance =
+                Vector2.Distance(dashStartPos, transform.position);
+            effectSpawnChange(true);
+            AttackEffectObject.transform.up = dashDirection.normalized;
+            if (movedDistance >= dashDistance)
             {
                 Dash = false;
                 rb.velocity = Vector2.zero;
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.identity;
             }
         }
         else 
         {
+            effectSpawnChange(false);
             animator.Play("落下");
         }
         if (transform.position.y < FINISHPOSITION_Y) 
@@ -123,9 +146,29 @@ public class SR_PlayerController : MonoBehaviour
         }
         rb.gravityScale = gravity;
     }
+    void SpawnEffect(GameObject target)
+    {
+
+        GameObject CL_Effect = Instantiate(Effect, target.transform.position, Quaternion.identity);
+        Destroy(CL_Effect, 2);
+
+    }
+    void effectSpawnChange(bool b) 
+    {
+        if (b)
+        {
+            AttackEffectObject.SetActive(true);
+            particleSystem.emissionRate = ATTACKEFFECT_EMISION_RATE;
+            AttackEffectObject.transform.up = dashDirection.normalized;
+        }
+        else 
+        {
+            AttackEffectObject.SetActive(false);
+            particleSystem.emissionRate = 0;
+        }
+    }
 
 
-    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (playerAction != PlayerAction.Move) return;
@@ -137,12 +180,13 @@ public class SR_PlayerController : MonoBehaviour
             {
                 playerAction = PlayerAction.Down;
                 rb.velocity = Vector2.zero;
-                SR_CameraMove.Instance.Shake(0.3f, 0.3f);
+                SR_CameraMove.Instance.Shake(1f, 0.3f);
                 SR_AudioManager.instance.isPlaySE(audioClips[3]);
             }
             else 
             {
                 if (!Dash) return;
+                SpawnEffect(other.gameObject);
                 GetItem(item);
             }   
         }
@@ -151,6 +195,7 @@ public class SR_PlayerController : MonoBehaviour
     void GetItem(SR_ItemController item) 
     {
         hototogisuPoint += item.itemType.Point;
+        hototogisuPoint *= item.itemType.pointMultiplier;
         SR_CameraMove.Instance.Shake(0.1f, 0.2f);
         SR_AudioManager.instance.isPlaySE(audioClips[2]);
         item.ReturnToPool();

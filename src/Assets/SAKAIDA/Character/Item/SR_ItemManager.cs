@@ -47,9 +47,35 @@ public class SR_ItemManager : MonoBehaviour
         var obj = ItemPool.Instance.Get(itemPrefab, pos, rot);
         obj.GetComponent<SR_ItemController>().Init(itemPrefab);
         SR_ItemController itemController = obj.GetComponent<SR_ItemController>();
-        itemController.itemType = itemTypes[UnityEngine.Random.Range(0, itemTypes.Count)];
+        itemController.itemType = GetRandomItemByPriority();
         itemController.spriteRenderer.sprite = itemController.itemType.Image;
         itemController.rb.velocity = Vector2.right * -5;
+    }
+    SR_ItemType GetRandomItemByPriority()
+    {
+        float totalPriority = 0f;
+
+        // priority 合計
+        foreach (var item in itemTypes)
+        {
+            totalPriority += item.spawnPriority;
+        }
+
+        // 0～合計値
+        float rand = UnityEngine.Random.Range(0f, totalPriority);
+
+        // 抽選
+        foreach (var item in itemTypes)
+        {
+            rand -= item.spawnPriority;
+            if (rand <= 0f)
+            {
+                return item;
+            }
+        }
+
+        // 保険（通常ここには来ない）
+        return itemTypes[itemTypes.Count - 1];
     }
 }
 [Serializable]
@@ -57,7 +83,9 @@ public class SR_ItemType
 {
     public string Name;
     public float Point = 1;
+    public float pointMultiplier = 1;
     public float Speed = 3;
+    public float spawnPriority = 1;
     public Sprite Image;
     public enum ItemType
     {
