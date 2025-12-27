@@ -8,6 +8,8 @@ public class SR_PlayerController : MonoBehaviour
 {
     public static SR_PlayerController instance;
 
+    SR_GameSystem gameSystem => SR_GameSystem.instance;
+
     [SerializeField] SR_CursorController cursorController;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
@@ -22,6 +24,7 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] GameObject Effect;
     [SerializeField] ParticleSystem particleSystem;
     [SerializeField] GameObject AttackEffectObject;
+    [SerializeField] GameObject playerAnimatorBody;
     Vector2 dashDirection;
     Vector2 dashStartPos;
 
@@ -50,6 +53,7 @@ public class SR_PlayerController : MonoBehaviour
     public void OnNomalAttack(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
+        if (gameSystem.gameMode != SR_GameSystem.GameMode.PointCollect) return;
         if (playerAction == PlayerAction.Down ||
             playerAction == PlayerAction.NoAction ||
             playerAction == PlayerAction.Finish) return;
@@ -71,8 +75,12 @@ public class SR_PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        switch (playerAction) 
-        { 
+       
+        if (gameSystem.gameMode == SR_GameSystem.GameMode.PointCollect)
+        {
+            playerAnimatorBody.SetActive(true);
+            switch (playerAction) 
+            { 
         
             case PlayerAction.Move:
                 moveAction();
@@ -90,6 +98,11 @@ public class SR_PlayerController : MonoBehaviour
                 DownAction();
                 break;
         
+            }
+        }
+        else 
+        {
+            playerAnimatorBody.SetActive(false);
         }
     }
     void DownAction() 
@@ -98,6 +111,7 @@ public class SR_PlayerController : MonoBehaviour
         rb.velocity = new Vector2(downXmoveSpeed,rb.velocity.y);
         rb.gravityScale = 1;
         transform.Rotate(0, 0, 50);
+        animator.Play("’Ä—Ž");
         if (transform.position.y < FINISHPOSITION_Y)
         {
             rb.gravityScale = 0;

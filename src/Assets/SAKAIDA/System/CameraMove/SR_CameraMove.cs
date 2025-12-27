@@ -10,6 +10,8 @@ public class SR_CameraMove : MonoBehaviour
     [SerializeField] float MIN_CHAMERAMOVE_Y = 0;
     [SerializeField] float MAX_CHAMERAMOVE_X = 3;
 
+    Vector3 shakeRange = Vector2.zero;
+    [Header("Cameraを動かす用のvecto3")]
     public Vector3 AddRange = Vector2.zero;
     private Coroutine shakeCoroutine;
 
@@ -29,7 +31,7 @@ public class SR_CameraMove : MonoBehaviour
         { 
         targetYpos =MAX_CHAMERAMOVE_X;
         }
-        transform.position = new Vector3 (0 + AddRange.x,targetYpos + AddRange.y,-10);
+        transform.position = new Vector3 (0 + shakeRange.x + AddRange.x,targetYpos + shakeRange.y + AddRange.y,-10+ AddRange.z);
     }
 
     public void Shake(float duration, float strength)
@@ -51,7 +53,7 @@ public class SR_CameraMove : MonoBehaviour
         while (elapsed < duration)
         {
             // ランダムにカメラ位置をずらす
-            AddRange = (Vector3)Random.insideUnitCircle * strength;
+            shakeRange = (Vector3)Random.insideUnitCircle * strength;
 
 
 
@@ -60,7 +62,7 @@ public class SR_CameraMove : MonoBehaviour
         }
 
         // 元の位置に戻す
-        AddRange = Vector2.zero;
+        shakeRange = Vector2.zero;
         shakeCoroutine = null;
     }
 }
