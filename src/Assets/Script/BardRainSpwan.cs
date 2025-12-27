@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class BardCountSpwan : MonoBehaviour
+public class BardRainSpwan : MonoBehaviour 
 {
     [SerializeField]
     GameObject[] PrefabPool;
@@ -11,7 +12,7 @@ public class BardCountSpwan : MonoBehaviour
     float MaxUp_Y = 8f;
 
     [SerializeField]
-    float StartUpSpeed = 2f;
+    float MinDown_Y = -10f;
 
     [SerializeField]
     float MinUpSpeed = 3f;
@@ -25,28 +26,27 @@ public class BardCountSpwan : MonoBehaviour
     [SerializeField]
     float Range_X = 4f;
 
-    //[SerializeField]
-    //float Speed_X = 3f; 
+    [SerializeField]
+    float Speed_X = 3f;
+
+    [SerializeField]
+    float Slide_X = 4f; 
 
     [SerializeField]
     int SpwanDistanceflame = 2;
 
     [SerializeField]
-    TextSystem TextSystem;
-
-    [SerializeField]
-    Vector3 ResetPos = new(){ x = 0, y = -7, z = 0 };
+    Vector3 ResetPos = new() { x = 0, y = -7, z = 0 };
 
     int BardCount = 100;
 
     int currentPopCount;
 
     bool SpwanFlag = false;
-    bool RepopFlag = false;
-
+ 
     public void SetFlag() => SpwanFlag = !SpwanFlag;
 
-    float[] UpSppeds;
+    Vector2[] MoveSpeeds;
 
     int SpwanFlame = 0;
 
@@ -65,7 +65,7 @@ public class BardCountSpwan : MonoBehaviour
     void Start()
     {
         currentPopCount = 0;
-        UpSppeds = new float[PrefabPool.Length];
+        MoveSpeeds = new Vector2[PrefabPool.Length];
     }
 
     private void OnEnable()
@@ -76,7 +76,7 @@ public class BardCountSpwan : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!SpwanFlag) 
+        if (!SpwanFlag)
             return;
 
         SpwanFlame--;
@@ -85,8 +85,6 @@ public class BardCountSpwan : MonoBehaviour
         {
             PrefabsUp(i);
         }
-
-        TextSystem.TextSetting(BardCount - currentPopCount);
     }
 
     void PrefabsUp(int i)
@@ -97,53 +95,43 @@ public class BardCountSpwan : MonoBehaviour
             {
                 PrefabPool[i].SetActive(true);
 
-                Vector2 StartPos = new()
+                PrefabPool[i].transform.localPosition = new()
                 {
-                    y = transform.position.y + UnityEngine.Random.Range(-PopRange_Y, PopRange_Y),
-                    x = UnityEngine.Random.Range(-Range_X, Range_X)
+                    x = UnityEngine.Random.Range(-Range_X, Range_X),
+                    y = transform.localPosition.y + UnityEngine.Random.Range(-PopRange_Y, PopRange_Y),      
                 };
 
-                UpSppeds[i] += UnityEngine.Random.Range(StartUpSpeed, MinUpSpeed);
-                PrefabPool[i].transform.position = StartPos;
-
+                MoveSpeeds[i] = new Vector2()
+                {
+                    x = 0,
+                    y = UnityEngine.Random.Range(MinUpSpeed, MaxUpSpeed),
+                };
+   
                 currentPopCount++;
                 SpwanFlame = SpwanDistanceflame;
             }
 
-            if (PrefabPool[i].transform.position.y >= MaxUp_Y)
+            if (MoveSpeeds[i].x == 0f && PrefabPool[i].transform.localPosition.y >= MaxUp_Y)
             {
-                Vector2 StartPos = new()
+                MoveSpeeds[i] = new Vector2()
                 {
-                    y = transform.position.y,
-                    x = UnityEngine.Random.Range(-Range_X, Range_X) * 2
+                    x = Speed_X,
+                    y = MoveSpeeds[i].y * -1.5f,
                 };
 
-                UpSppeds[i] += UnityEngine.Random.Range(MinUpSpeed, MaxUpSpeed);
-                PrefabPool[i].transform.position = StartPos;
-
-                currentPopCount++;
+                PrefabPool[i].transform.localPosition += Vector3.left * Slide_X;
+            }
+            else if(PrefabPool[i].transform.localPosition.y <= MinDown_Y)
+            {
                 SpwanFlame = SpwanDistanceflame;
-                RepopFlag = true;
+                PrefabPool[i].SetActive(false);
             }
         }
 
-        /*
-        float next_X = 0;
-
-        if(PrefabPool[i].transform.position.x > 0)
+        PrefabPool[i].transform.localPosition = new()
         {
-            next_X -= Speed_X;
-        }
-        else if (PrefabPool[i].transform.position.x < 0)
-        {
-            next_X += Speed_X;
-        }
-        */
-
-        PrefabPool[i].transform.position = new()
-        {
-            x = PrefabPool[i].transform.position.x * 0.99f,
-            y = PrefabPool[i].transform.position.y + Time.fixedDeltaTime * UpSppeds[i],
+            x = PrefabPool[i].transform.localPosition.x + Time.fixedDeltaTime * MoveSpeeds[i].x,
+            y = PrefabPool[i].transform.localPosition.y + Time.fixedDeltaTime * MoveSpeeds[i].y,
         };
     }
 }
