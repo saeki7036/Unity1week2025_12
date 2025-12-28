@@ -30,6 +30,9 @@ public class SR_GameSystem : MonoBehaviour
     BardCountSpwan bard_1;
 
     [SerializeField]
+    TextSystem text_1;
+
+    [SerializeField]
     BardRainSpwan bard_2;
 
     [SerializeField]
@@ -61,6 +64,7 @@ public class SR_GameSystem : MonoBehaviour
             stayCoroutine = StartCoroutine(StayCoroutine(SetFlooded));
             bard_1.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
             UnityroomApiClient.Instance.SendScore(1, (int)SR_PlayerController.instance.hototogisuPoint, ScoreboardWriteMode.HighScoreDesc);
+            text_1.TextSetting((int)SR_PlayerController.instance.hototogisuPoint);
         }
         else if (gameMode == GameMode.Flooded && playableDirectors[0].state != PlayState.Playing)
         {            
@@ -76,6 +80,7 @@ public class SR_GameSystem : MonoBehaviour
         }
         else if (gameMode == GameMode.Clear && playableDirectors[2].state != PlayState.Playing)
         {
+            //gameMode = GameMode.NpAction;
             stayCoroutine = StartCoroutine(StayCoroutine(SetNext));
         }
     }
@@ -115,7 +120,7 @@ public class SR_GameSystem : MonoBehaviour
     {
         bard_2.ResetPool();
 
-        if(SR_PlayerController.instance.hototogisuPoint >= 10)
+        if(SR_PlayerController.instance.hototogisuPoint >= EnemyManager.instance.SetEnemy.maxHP)
         {
             bard_3.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
             enemy_3.sprite = EnemyManager.instance.SetEnemy.sprite;
@@ -135,11 +140,12 @@ public class SR_GameSystem : MonoBehaviour
 
     private void SetNext()
     {
+        if (gameMode == GameMode.PointCollect) return;
         bard_3.ResetPool();
 
         SR_CameraMove.Instance.AddRange = Vector3.right * 0;
         SR_PlayerController.instance.ResetScore();
-        EnemyManager.instance.nowEnemyLevel++;
+        //EnemyManager.instance.nowEnemyLevel++;
         startEnemy.PointCollect_Reset();
 
         gameMode = GameMode.PointCollect;
