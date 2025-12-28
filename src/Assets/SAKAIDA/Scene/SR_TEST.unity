@@ -1223,7 +1223,11 @@ MonoBehaviour:
   MAX_ENEMY_MOVE_POS_X: 13
   MIN_ENEMY_MOVE_POS_X: 5
   MOVE_SPEED: 7
-  START_STAY_TIME: 2
+  START_STAY_TIME: 0.5
+  audioClips:
+  - {fileID: 8300000, guid: c78bb2eea9075b5458648c7ad842355c, type: 3}
+  PLAYER_START_POS: {x: -6.5, y: -2}
+  boatAnimator: {fileID: 2048190361}
   EnemyObject: {fileID: 507466081}
   EnemyObject_rb: {fileID: 507466084}
   EventAnimator: {fileID: 1185883992}
@@ -1333,7 +1337,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10000
-  m_Sprite: {fileID: 21300000, guid: 3ffc79d659db8654c92ee7d70cead9bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c786333f70322f54bb282e5ac57f386d, type: 3}
   m_Color: {r: 0.3584906, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1398,7 +1402,7 @@ MonoBehaviour:
     pointMultiplier: 1
     Speed: 3
     spawnPriority: 6
-    Image: {fileID: 21300000, guid: 711bb33e179ab6d4186b7d7fd8aa06b7, type: 3}
+    Image: {fileID: 21300000, guid: da6ba7ff96581ac4bab90f940254890c, type: 3}
     itemType: 0
   - Name: "\u77F3"
     orderLayer: 3
@@ -1418,7 +1422,7 @@ MonoBehaviour:
     pointMultiplier: 0
     Speed: 3
     spawnPriority: 6
-    Image: {fileID: 21300000, guid: f3a2ad1cbe52dc841886a621f953a894, type: 3}
+    Image: {fileID: 21300000, guid: cac1aeec9151234498ed535468323bd7, type: 3}
     itemType: 2
   - Name: "\u9CE5"
     orderLayer: 0
@@ -1528,7 +1532,7 @@ Transform:
   m_GameObject: {fileID: 1032223841}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.55, y: -2.08, z: 0}
+  m_LocalPosition: {x: -6.5, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2455,6 +2459,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0c54736e-6dd7-40ec-a606-417e5817431e
     m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 752663607}
+        m_TargetAssemblyTypeName: SR_StartEnemy, Assembly-CSharp
+        m_MethodName: OnDebug
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9f8d81e1-4671-4009-8cc3-060cbabab486
+    m_ActionName: Player/Debug[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
