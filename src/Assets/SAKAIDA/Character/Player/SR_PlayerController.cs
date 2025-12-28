@@ -21,7 +21,7 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] float FINISHPOSITION_Y = -5;
     [SerializeField] float ATTACKEFFECT_EMISION_RATE = 15;
     [SerializeField] float downXmoveSpeed = 3;
-    [SerializeField] bool Dash = false;
+    public  bool Dash = false;
     [SerializeField] Vector2 TargetPos;
     [SerializeField] List<AudioClip> audioClips = new List<AudioClip>();
     [SerializeField] GameObject Effect;
@@ -29,6 +29,9 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] GameObject AttackEffectObject;
     [SerializeField] GameObject playerAnimatorBody;
     [SerializeField] GameObject ComboObjects;
+    [SerializeField] SceneChenge sceneChenge;
+
+    public bool StartScene = false;
 
     public TextMeshProUGUI ComboText;
     [SerializeField] Animator combosAnimator;
@@ -36,14 +39,16 @@ public class SR_PlayerController : MonoBehaviour
     Vector2 dashDirection;
     Vector2 dashStartPos;
 
+    public bool AttackOK = false;
+
     public float Combo = 0;//コンボ
     [SerializeField] float ADD_POINT_MULTIPLY = 0.1f;//１コンボ当たりのpoint倍率
     [SerializeField] float dashDistance = 3.0f;
     [SerializeField] float COMBO_RESET_LIMIT = 0.5f;
     float comboResetCount = 0;
+    [SerializeField] TextSystem textSystem;
 
-
-    public float hototogisuPoint = 0;
+    public float hototogisuPoint = 2;
 
     private void Awake()
     {
@@ -65,6 +70,7 @@ public class SR_PlayerController : MonoBehaviour
     public void OnNomalAttack(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
+        if (!AttackOK) return;
         if (gameSystem.gameMode != SR_GameSystem.GameMode.PointCollect) return;
         if (playerAction == PlayerAction.Down ||
             playerAction == PlayerAction.NoAction ||
@@ -90,6 +96,9 @@ public class SR_PlayerController : MonoBehaviour
         float allbounus = (Combo * ADD_POINT_MULTIPLY) * 100;
         BounusText.text = allbounus.ToString("F0");
         comboResetCount = 0;
+
+        hototogisuPoint = 2;
+        textSystem?.TextSetting((int)hototogisuPoint);
     }
     private void FixedUpdate()
     {
@@ -124,6 +133,13 @@ public class SR_PlayerController : MonoBehaviour
             playerAnimatorBody.SetActive(false);
             ComboObjects.SetActive(false);
         }
+        if (StartScene) 
+        {
+            if (hototogisuPoint > 10) 
+            {
+                sceneChenge.ChangeSceneMainGame();
+            }
+        }
     }
     void DownAction() 
     {
@@ -143,16 +159,23 @@ public class SR_PlayerController : MonoBehaviour
     void stayAction() 
     {
         animator.Play("待機");
-        if(Dash)playerAction = PlayerAction.Move;
+        if (Dash)
+        {
+            if(!StartScene)SR_AudioManager.instance.BgmSource.Play();
+            playerAction = PlayerAction.Move;
+        }
     }
     public void AddCombo() 
     {
+        if (StartScene) return;
+        Combo++;
+        float allbounus = (Combo * ADD_POINT_MULTIPLY)*100 ;
         combosAnimator.Play("コンボ獲得",0,0);
         ComboText.text = Combo.ToString();
-        float allbounus = (Combo * ADD_POINT_MULTIPLY)*100 ;
+        
         BounusText.text = allbounus.ToString("F0");
         comboResetCount = 0;
-        Combo++;
+        
     }
     void moveAction() 
     {
@@ -248,8 +271,14 @@ public class SR_PlayerController : MonoBehaviour
     {
         hototogisuPoint += item.itemType.Point * ( 1 + Combo * ADD_POINT_MULTIPLY);
         hototogisuPoint *= item.itemType.pointMultiplier;
+        textSystem?.TextSetting((int)hototogisuPoint);
         SR_CameraMove.Instance.Shake(0.1f, 0.2f);
         SR_AudioManager.instance.isPlaySE(audioClips[2]);
         item.ReturnToPool();
+    }
+    public void ResetScore()
+    {
+        hototogisuPoint = 2;
+        textSystem?.TextSetting((int)hototogisuPoint);
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efa25e63bd176fc4a9ad03daaa906cd5, type: 3}
-  m_Name: Enemy2
+  m_Name: Enemy_ZERO
   m_EditorClassIdentifier: 
-  enemyName: "\u5317\u658E\u30AB\u30D6\u30EC"
-  sprite: {fileID: 21300000, guid: e8b24d32dbd60164393142c069e39253, type: 3}
-  maxHP: 100
-  level: 0
+  enemyName: ZERO
+  sprite: {fileID: 21300000, guid: 7921d6a7f21bbed4691ec041204507d3, type: 3}
+  maxHP: 10000
+  level: 4

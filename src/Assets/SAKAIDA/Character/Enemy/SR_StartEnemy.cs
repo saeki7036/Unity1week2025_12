@@ -25,6 +25,7 @@ public class SR_StartEnemy : MonoBehaviour
 
     [SerializeField] Animator EventAnimator;
     [SerializeField] SpriteRenderer EnemySpriterender;
+    [SerializeField] SpriteRenderer EnemyBigSpriterender;
 
     bool oneClip = false;
 
@@ -43,7 +44,7 @@ public class SR_StartEnemy : MonoBehaviour
     }
     public void OnDebug(InputAction.CallbackContext context) 
     { 
-    PointCollect_Reset();
+    //PointCollect_Reset();
     }
     // Update is called once per frame
     private void FixedUpdate()
@@ -65,6 +66,7 @@ public class SR_StartEnemy : MonoBehaviour
     }
     void enemyChange() 
     {
+        EnemyBigSpriterender.sprite = enemyManager.SetEnemy.sprite;
         EnemySpriterender.sprite = enemyManager.SetEnemy.sprite;
         EnemyHpText.text = enemyManager.SetEnemy.maxHP.ToString();
         EnemyNameText.text = enemyManager.SetEnemy.enemyName;
@@ -75,6 +77,12 @@ public class SR_StartEnemy : MonoBehaviour
         playerController.playerAction = SR_PlayerController.PlayerAction.Stay;
         playerController.rb.velocity = Vector2.zero;
         playerController.ComboText.text = "0";
+        playerController.AttackOK = false;
+        playerController.gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
+        playerController.Dash = false;
+        enemyManager.nowEnemyLevel++;
+        enemyManager.SetEnemyNow();
+        gameSystem.gameMode = SR_GameSystem.GameMode.PointCollect;
         
         playerController.BounusText.text = "0";
         oneClip = false;
@@ -100,6 +108,7 @@ public class SR_StartEnemy : MonoBehaviour
             startStayCount += Time.fixedDeltaTime;
                 if (start && startStayCount > START_STAY_TIME && !oneClip) 
                 { 
+                playerController.AttackOK = true;
                 EventAnimator.Play("ŠJŽn"); 
                 oneClip = true;
                 SR_AudioManager.instance.isPlaySE(audioClips[0]);
