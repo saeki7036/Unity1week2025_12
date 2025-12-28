@@ -107,8 +107,8 @@ MonoBehaviour:
   - {fileID: 3705889653095559709}
   MaxUp_Y: 15
   MinDown_Y: -8
-  MinUpSpeed: 9
-  MaxUpSpeed: 9.5
+  MinUpSpeed: 13
+  MaxUpSpeed: 15
   PopRange_Y: 1.5
   Range_X: 2
   Speed_X: 30

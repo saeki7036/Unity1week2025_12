@@ -201,7 +201,7 @@ MonoBehaviour:
   - {fileID: 162311585}
   - {fileID: 74575397}
   - {fileID: 1118904637}
-  StayTime: 1.2
+  StayTime: 0.5
   bard_1: {fileID: 1655701608}
   bard_2: {fileID: 474445001}
   bard_3: {fileID: 1214085462}
@@ -417,6 +417,18 @@ PrefabInstance:
       propertyPath: m_InitialState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5524113213971856546, guid: 66ed44d989556bb478a906b6f7c0b81e, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524113213971856546, guid: 66ed44d989556bb478a906b6f7c0b81e, type: 3}
+      propertyPath: m_SceneBindings.Array.data[2].key
+      value: 
+      objectReference: {fileID: 6039242054148320073, guid: 09d4f1ebf9556ed4ebb61a97c4b138c9, type: 2}
+    - target: {fileID: 5524113213971856546, guid: 66ed44d989556bb478a906b6f7c0b81e, type: 3}
+      propertyPath: m_SceneBindings.Array.data[2].value
+      value: 
+      objectReference: {fileID: 1195707173}
     - target: {fileID: 5987428083621774113, guid: 66ed44d989556bb478a906b6f7c0b81e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 300
@@ -1391,6 +1403,11 @@ Transform:
 PlayableDirector:
   m_CorrespondingSourceObject: {fileID: 3773174379822466745, guid: ea255ba570354f443839c9642d4175a7, type: 3}
   m_PrefabInstance: {fileID: 1976636230}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1195707173 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6352460762199891854, guid: 66ed44d989556bb478a906b6f7c0b81e, type: 3}
+  m_PrefabInstance: {fileID: 252091451}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1214085462 stripped
 MonoBehaviour:
