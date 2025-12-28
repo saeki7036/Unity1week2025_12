@@ -32,6 +32,9 @@ public class SR_GameSystem : MonoBehaviour
     [SerializeField]
     BardRainHit bard_3,bard_4;
 
+    [SerializeField]
+    SpriteRenderer enemy_3,enemy_4;
+
     private Coroutine stayCoroutine;
 
     private void Awake()
@@ -99,12 +102,14 @@ public class SR_GameSystem : MonoBehaviour
         if(SR_PlayerController.instance.hototogisuPoint >= 10)
         {
             bard_3.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
+            enemy_3.sprite = EnemyManager.instance.SetEnemy.sprite;
             SR_CameraMove.Instance.AddRange = Vector3.right * 300;
             playableDirectors[2].Play();
         }
         else
         {
             bard_4.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
+            enemy_4.sprite = EnemyManager.instance.SetEnemy.sprite;
             SR_CameraMove.Instance.AddRange = Vector3.right * 400;
             playableDirectors[3].Play();
         }
