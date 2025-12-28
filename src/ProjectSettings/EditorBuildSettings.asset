@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/SAKAIDA/Scene/SR_TEST.unity
     guid: 380eb99a55ab03d42a5ff11a0cafd418
   - enabled: 0
@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SAKAIDA/Scene/SR_Title.unity
     guid: db4c2fa6f81f10d41aceeb83771f2ba9
+  - enabled: 1
+    path: Assets/SAKAIDA/Scene/SR_TEST 1.unity
+    guid: 1c566d82e48888343b0577670bde3972
   m_configObjects: {}

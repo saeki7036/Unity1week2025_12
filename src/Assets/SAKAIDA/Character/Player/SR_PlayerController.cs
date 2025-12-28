@@ -46,9 +46,9 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] float dashDistance = 3.0f;
     [SerializeField] float COMBO_RESET_LIMIT = 0.5f;
     float comboResetCount = 0;
+    [SerializeField] TextSystem textSystem;
 
-
-    public float hototogisuPoint = 0;
+    public float hototogisuPoint = 2;
 
     private void Awake()
     {
@@ -96,6 +96,9 @@ public class SR_PlayerController : MonoBehaviour
         float allbounus = (Combo * ADD_POINT_MULTIPLY) * 100;
         BounusText.text = allbounus.ToString("F0");
         comboResetCount = 0;
+
+        hototogisuPoint = 2;
+        textSystem?.TextSetting((int)hototogisuPoint);
     }
     private void FixedUpdate()
     {
@@ -268,8 +271,14 @@ public class SR_PlayerController : MonoBehaviour
     {
         hototogisuPoint += item.itemType.Point * ( 1 + Combo * ADD_POINT_MULTIPLY);
         hototogisuPoint *= item.itemType.pointMultiplier;
+        textSystem?.TextSetting((int)hototogisuPoint);
         SR_CameraMove.Instance.Shake(0.1f, 0.2f);
         SR_AudioManager.instance.isPlaySE(audioClips[2]);
         item.ReturnToPool();
+    }
+    public void ResetScore()
+    {
+        hototogisuPoint = 2;
+        textSystem?.TextSetting((int)hototogisuPoint);
     }
 }
