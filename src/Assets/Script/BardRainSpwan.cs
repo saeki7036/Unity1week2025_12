@@ -123,7 +123,7 @@ public class BardRainSpwan : MonoBehaviour
                 MoveSpeeds[i] = new Vector2()
                 {
                     x = Speed_X,
-                    y = MoveSpeeds[i].y * -1.5f,
+                    y = MoveSpeeds[i].y * -2f,
                 };
 
                 PrefabPool[i].transform.localPosition += Vector3.left * Slide_X;
