@@ -23,6 +23,9 @@ public class BardRainHit : MonoBehaviour
     int SpwanDistanceflame = 2;
 
     [SerializeField]
+    AudioClip AttackClip;
+
+    [SerializeField]
     Vector3 ResetPos = new() { x = 0, y = -7, z = 0 };
 
     public int BardCount = 100;
@@ -105,6 +108,12 @@ public class BardRainHit : MonoBehaviour
             {
                 SpwanFlame = SpwanDistanceflame;
                 PrefabPool[i].SetActive(false);
+            }
+
+            if(Mathf.Abs( PrefabPool[i].transform.localPosition.x ) < 2f)
+            {
+                SR_AudioManager.instance.isPlaySE(AttackClip);
+                SR_CameraMove.Instance.Shake(0.1f, 0.1f);
             }
         }
 

@@ -327,11 +327,12 @@ MonoBehaviour:
   - {fileID: 2452549541124673065}
   - {fileID: 563282588902559040}
   PopRange: {x: 3, y: 0.5}
-  MoveSpeed: {x: 10, y: -5}
+  MoveSpeed: {x: 30, y: -15}
   MinPos_Y: -11
   SpwanDistanceflame: 5
+  AttackClip: {fileID: 8300000, guid: 77b7eab4fa144ae419a1bc1d1d535c51, type: 3}
   ResetPos: {x: 0, y: -7, z: 0}
-  BardCount: 100
+  BardCount: 0
 --- !u!1001 &196134801285945101
 PrefabInstance:
   m_ObjectHideFlags: 0
