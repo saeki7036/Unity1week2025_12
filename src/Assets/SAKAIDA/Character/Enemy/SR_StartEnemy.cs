@@ -79,6 +79,7 @@ public class SR_StartEnemy : MonoBehaviour
         playerController.ComboText.text = "0";
         playerController.AttackOK = false;
         playerController.gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
+        playerController.Dash = false;
         enemyManager.nowEnemyLevel++;
         enemyManager.SetEnemyNow();
         gameSystem.gameMode = SR_GameSystem.GameMode.PointCollect;
