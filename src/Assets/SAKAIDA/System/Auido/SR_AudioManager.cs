@@ -21,7 +21,7 @@ public class SR_AudioManager : MonoBehaviour
         if (BGM != null)
         {
             BgmSource.clip = BGM;
-            BgmSource.Play();
+            //BgmSource.Play();
         }
 
         if (instance != null)

@@ -25,6 +25,7 @@ public class SR_StartEnemy : MonoBehaviour
 
     [SerializeField] Animator EventAnimator;
     [SerializeField] SpriteRenderer EnemySpriterender;
+    [SerializeField] SpriteRenderer EnemyBigSpriterender;
 
     bool oneClip = false;
 
@@ -65,6 +66,7 @@ public class SR_StartEnemy : MonoBehaviour
     }
     void enemyChange() 
     {
+        EnemyBigSpriterender.sprite = enemyManager.SetEnemy.sprite;
         EnemySpriterender.sprite = enemyManager.SetEnemy.sprite;
         EnemyHpText.text = enemyManager.SetEnemy.maxHP.ToString();
         EnemyNameText.text = enemyManager.SetEnemy.enemyName;
