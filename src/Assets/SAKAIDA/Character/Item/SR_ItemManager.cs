@@ -33,7 +33,7 @@ public class SR_ItemManager : MonoBehaviour
     void Update()
     {
         if (playerController.playerAction != SR_PlayerController.PlayerAction.Move) return;
-        if (playerController.StartScene) return;
+        
         timer += Time.deltaTime;
         float currentPerSecond = spawnCount + spawnPerSecond;
         if (currentPerSecond > maxSpawnPerSecond) currentPerSecond = maxSpawnPerSecond;
