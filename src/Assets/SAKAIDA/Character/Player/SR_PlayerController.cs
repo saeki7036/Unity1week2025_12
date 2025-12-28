@@ -11,7 +11,7 @@ public class SR_PlayerController : MonoBehaviour
     SR_GameSystem gameSystem => SR_GameSystem.instance;
 
     [SerializeField] SR_CursorController cursorController;
-    [SerializeField] Rigidbody2D rb;
+    public Rigidbody2D rb;
     [SerializeField] Animator animator;
     [SerializeField] float speed = 4;
     [SerializeField] float stopDashDirection = 0.2f;

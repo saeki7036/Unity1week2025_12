@@ -1,8 +1,8 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SR_StartEnemy : MonoBehaviour
 {
@@ -12,11 +12,19 @@ public class SR_StartEnemy : MonoBehaviour
     [SerializeField] float MIN_ENEMY_MOVE_POS_X = 5;
     [SerializeField] float MOVE_SPEED = 3;
     [SerializeField] float START_STAY_TIME = 1;
+
+    [SerializeField] List<AudioClip> audioClips = new List<AudioClip>();
+
+    [SerializeField] Vector2 PLAYER_START_POS;
+    [SerializeField] Animator boatAnimator;
+
     float startStayCount = 0;
     [SerializeField] GameObject EnemyObject;
     [SerializeField] Rigidbody2D EnemyObject_rb;
 
     [SerializeField] Animator EventAnimator;
+
+    bool oneClip = false;
 
     SR_GameSystem gameSystem => SR_GameSystem.instance;
     SR_PlayerController playerController => SR_PlayerController.instance;
@@ -26,7 +34,14 @@ public class SR_StartEnemy : MonoBehaviour
     {
         
     }
-
+    private void Update()
+    {
+       
+    }
+    public void OnDebug(InputAction.CallbackContext context) 
+    { 
+    PointCollect_Reset();
+    }
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -44,7 +59,16 @@ public class SR_StartEnemy : MonoBehaviour
         }
 
     }
-
+    public void PointCollect_Reset()
+    {
+        playerController.gameObject.transform.position = PLAYER_START_POS;
+        playerController.playerAction = SR_PlayerController.PlayerAction.Stay;
+        playerController.rb.velocity = Vector2.zero;
+        oneClip = false;
+        EventAnimator.Play("待機");
+        boatAnimator.Play("待機");
+        
+    }
     void MoveAction(float X_Pos,bool start) 
     { 
     
@@ -61,8 +85,12 @@ public class SR_StartEnemy : MonoBehaviour
         {
             EnemyObject_rb.velocity = Vector2.zero;
             startStayCount += Time.fixedDeltaTime;
-                if (start && startStayCount > START_STAY_TIME) 
-                { EventAnimator.Play("開始"); } 
+                if (start && startStayCount > START_STAY_TIME && !oneClip) 
+                { 
+                EventAnimator.Play("開始"); 
+                oneClip = true;
+                SR_AudioManager.instance.isPlaySE(audioClips[0]);
+                } 
                
         }
         if(playerController.playerAction == SR_PlayerController.PlayerAction.Move) EventAnimator.Play("終了");
