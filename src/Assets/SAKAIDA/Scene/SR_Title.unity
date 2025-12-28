@@ -648,8 +648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20780a7d09d8b44cb0265418c30d76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleSceneName: TitleScene
-  MainGaneSceneName: SR_TEST
+  titleSceneName: SR_Title
+  MainGaneSceneName: SR_MainGame
   waitTime: 3
 --- !u!4 &588844996
 Transform:

@@ -309,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1250171427208731417, guid: ea255ba570354f443839c9642d4175a7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3819522215723418633, guid: ea255ba570354f443839c9642d4175a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -358,6 +358,14 @@ PrefabInstance:
     - target: {fileID: 5723449732154602420, guid: ea255ba570354f443839c9642d4175a7, type: 3}
       propertyPath: m_SortingOrder
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260829515821423611, guid: ea255ba570354f443839c9642d4175a7, type: 3}
+      propertyPath: titleSceneName
+      value: SR_Title
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260829515821423611, guid: ea255ba570354f443839c9642d4175a7, type: 3}
+      propertyPath: MainGaneSceneName
+      value: SR_MainGame
       objectReference: {fileID: 0}
     - target: {fileID: 6647565775613792150, guid: ea255ba570354f443839c9642d4175a7, type: 3}
       propertyPath: m_Name
