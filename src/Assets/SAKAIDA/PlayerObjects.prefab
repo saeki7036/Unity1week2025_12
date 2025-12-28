@@ -5343,6 +5343,8 @@ MonoBehaviour:
   AttackEffectObject: {fileID: 1798548929556416110}
   playerAnimatorBody: {fileID: 5260284012883919800}
   ComboObjects: {fileID: 7041699755412592535}
+  sceneChenge: {fileID: 0}
+  StartScene: 0
   ComboText: {fileID: 2244166797713821210}
   combosAnimator: {fileID: 2116121007365263155}
   BounusText: {fileID: 4137099906381411371}
@@ -6867,11 +6869,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDatas:
   - {fileID: 11400000, guid: d95bfdc150d883c4eb22c1890e9bc323, type: 2}
-  - {fileID: 11400000, guid: 3210a377cec97544d982024048268898, type: 2}
   - {fileID: 11400000, guid: 92d80e6b72c99a048acc3309fa4dcef5, type: 2}
+  - {fileID: 11400000, guid: 3210a377cec97544d982024048268898, type: 2}
+  - {fileID: 11400000, guid: a48b467f42cc9f847b8261b34b1e5acd, type: 2}
   - {fileID: 11400000, guid: 0a6a179298d3c974e8f0a77b204903fa, type: 2}
   - {fileID: 11400000, guid: 4524401e87683c344bcbbe32a4a93391, type: 2}
-  - {fileID: 11400000, guid: a48b467f42cc9f847b8261b34b1e5acd, type: 2}
   SetEnemy: {fileID: 0}
   nowEnemyLevel: 0
 --- !u!1 &4617541651186274044
@@ -11842,6 +11844,7 @@ MonoBehaviour:
   MIN_CHAMERAMOVE_Y: -4
   MAX_CHAMERAMOVE_X: 10
   DIE_ITEM_RANGE_X: -10
+  StartMenuItemPos: {x: 0, y: 0}
 --- !u!1 &5000431733470859152
 GameObject:
   m_ObjectHideFlags: 0
