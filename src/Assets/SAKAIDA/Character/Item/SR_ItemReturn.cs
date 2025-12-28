@@ -12,7 +12,7 @@ public class SR_ItemReturn : MonoBehaviour
         {
             itemController.rb.velocity = Vector2.zero;
             transform.position = Vector2.zero;
-        itemController.ReturnToPool();
+            itemController.ReturnToPool();
         }
     }
 }
