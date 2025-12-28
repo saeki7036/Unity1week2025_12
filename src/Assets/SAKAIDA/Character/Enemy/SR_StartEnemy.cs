@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -73,6 +74,9 @@ public class SR_StartEnemy : MonoBehaviour
         playerController.gameObject.transform.position = PLAYER_START_POS;
         playerController.playerAction = SR_PlayerController.PlayerAction.Stay;
         playerController.rb.velocity = Vector2.zero;
+        playerController.ComboText.text = "0";
+        
+        playerController.BounusText.text = "0";
         oneClip = false;
         EventAnimator.Play("‘Ò‹@");
         boatAnimator.Play("‘Ò‹@");
