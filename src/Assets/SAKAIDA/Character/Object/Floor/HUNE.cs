@@ -14,6 +14,7 @@ public class HUNE : MonoBehaviour
         }
         else 
         {
+            if (playerController.StartScene) return;
             animator.Play("’¾‚Þ");
         }
     }

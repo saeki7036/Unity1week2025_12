@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: "\u7B46\u30AB\u30CB"
   sprite: {fileID: 21300000, guid: 648e5d19e3e580c4eb46925dd7ce2025, type: 3}
-  maxHP: 4000
-  level: 2
+  maxHP: 400
+  level: 1

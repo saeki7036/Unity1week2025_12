@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+
 public class SR_ItemManager : MonoBehaviour
 {
     public List<SR_ItemType> itemTypes = new List<SR_ItemType>();
@@ -15,15 +17,23 @@ public class SR_ItemManager : MonoBehaviour
     [SerializeField] float MAX_CHAMERAMOVE_X = 3;
     public float DIE_ITEM_RANGE_X = -6;
     SR_PlayerController playerController => SR_PlayerController.instance;
-
+    [SerializeField] Vector2 StartMenuItemPos;
     float timer = 0f;
     private void Awake()
     {
         Instance = this;
     }
+    private void Start()
+    {
+        if (playerController.StartScene) 
+        {
+            oneSpawn();
+        }
+    }
     void Update()
     {
         if (playerController.playerAction != SR_PlayerController.PlayerAction.Move) return;
+        if (playerController.StartScene) return;
         timer += Time.deltaTime;
         float currentPerSecond = spawnCount + spawnPerSecond;
         if (currentPerSecond > maxSpawnPerSecond) currentPerSecond = maxSpawnPerSecond;
@@ -36,7 +46,17 @@ public class SR_ItemManager : MonoBehaviour
             timer -= interval;
         }
     }
-
+    void oneSpawn() 
+    {
+        var obj = ItemPool.Instance.Get(itemPrefab, StartMenuItemPos, Quaternion.Euler(0, 0, 0));
+        obj.GetComponent<SR_ItemController>().Init(itemPrefab);
+        SR_ItemController itemController = obj.GetComponent<SR_ItemController>();
+        itemController.itemType = itemTypes[3];
+        itemController.spriteRenderer.sprite = itemController.itemType.Image;
+        itemController.spriteRenderer.sortingOrder = itemController.itemType.orderLayer;
+        itemController.circleCollider.radius = itemController.itemType.circleRudius;
+        itemController.transform.localScale = Vector3.one * itemController.itemType.itemSize;
+    }
     void Spawn()
     {
         Vector2 pos = new Vector2 (10, UnityEngine.Random.Range(MIN_CHAMERAMOVE_Y, MAX_CHAMERAMOVE_X));
