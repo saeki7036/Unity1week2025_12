@@ -21,7 +21,7 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] float FINISHPOSITION_Y = -5;
     [SerializeField] float ATTACKEFFECT_EMISION_RATE = 15;
     [SerializeField] float downXmoveSpeed = 3;
-    [SerializeField] bool Dash = false;
+    public  bool Dash = false;
     [SerializeField] Vector2 TargetPos;
     [SerializeField] List<AudioClip> audioClips = new List<AudioClip>();
     [SerializeField] GameObject Effect;
