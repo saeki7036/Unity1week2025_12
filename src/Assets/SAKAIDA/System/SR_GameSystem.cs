@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Playables;
+using unityroom.Api;
 
 public class SR_GameSystem : MonoBehaviour
 {
@@ -13,7 +15,8 @@ public class SR_GameSystem : MonoBehaviour
         PointCollect,   // ポイント収集パート
         Flooded,        // 水没パート
         BardShot,       // 鳥発射パート
-        Combat          // 攻撃パート
+        Combat,         // 攻撃パート
+        Clear
     }
     public GameMode gameMode = GameMode.PointCollect;
 
@@ -27,10 +30,19 @@ public class SR_GameSystem : MonoBehaviour
     BardCountSpwan bard_1;
 
     [SerializeField]
+    TextSystem text_1;
+
+    [SerializeField]
     BardRainSpwan bard_2;
 
     [SerializeField]
     BardRainHit bard_3,bard_4;
+
+    [SerializeField]
+    SpriteRenderer enemy_3,enemy_4;
+
+    [SerializeField]
+    SR_StartEnemy startEnemy;
 
     private Coroutine stayCoroutine;
 
@@ -49,7 +61,10 @@ public class SR_GameSystem : MonoBehaviour
     {
         if(gameMode == GameMode.PointCollect && SR_PlayerController.instance.playerAction == SR_PlayerController.PlayerAction.Finish)
         {
-            stayCoroutine = StartCoroutine(StayCoroutine(SetFlooded));           
+            stayCoroutine = StartCoroutine(StayCoroutine(SetFlooded));
+            bard_1.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
+            UnityroomApiClient.Instance.SendScore(1, (int)SR_PlayerController.instance.hototogisuPoint, ScoreboardWriteMode.HighScoreDesc);
+            text_1.TextSetting((int)SR_PlayerController.instance.hototogisuPoint);
         }
         else if (gameMode == GameMode.Flooded && playableDirectors[0].state != PlayState.Playing)
         {            
@@ -58,6 +73,15 @@ public class SR_GameSystem : MonoBehaviour
         else if (gameMode == GameMode.BardShot && playableDirectors[1].state != PlayState.Playing)
         {
             stayCoroutine = StartCoroutine(StayCoroutine(SetCombat));
+        }
+        else if (gameMode == GameMode.Combat && playableDirectors[2].state == PlayState.Playing)
+        {
+            gameMode = GameMode.Clear;
+        }
+        else if (gameMode == GameMode.Clear && playableDirectors[2].state != PlayState.Playing)
+        {
+            //gameMode = GameMode.NpAction;
+            stayCoroutine = StartCoroutine(StayCoroutine(SetNext));
         }
     }
 
@@ -96,19 +120,34 @@ public class SR_GameSystem : MonoBehaviour
     {
         bard_2.ResetPool();
 
-        if(SR_PlayerController.instance.hototogisuPoint >= 10)
+        if(SR_PlayerController.instance.hototogisuPoint >= EnemyManager.instance.SetEnemy.maxHP)
         {
             bard_3.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
+            enemy_3.sprite = EnemyManager.instance.SetEnemy.sprite;
             SR_CameraMove.Instance.AddRange = Vector3.right * 300;
             playableDirectors[2].Play();
         }
         else
         {
             bard_4.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
+            enemy_4.sprite = EnemyManager.instance.SetEnemy.sprite;
             SR_CameraMove.Instance.AddRange = Vector3.right * 400;
             playableDirectors[3].Play();
         }
             
         gameMode = GameMode.Combat;
+    }
+
+    private void SetNext()
+    {
+        if (gameMode == GameMode.PointCollect) return;
+        bard_3.ResetPool();
+
+        SR_CameraMove.Instance.AddRange = Vector3.right * 0;
+        SR_PlayerController.instance.ResetScore();
+        //EnemyManager.instance.nowEnemyLevel++;
+        startEnemy.PointCollect_Reset();
+
+        gameMode = GameMode.PointCollect;
     }
 }

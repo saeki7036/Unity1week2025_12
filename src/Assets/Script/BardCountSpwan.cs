@@ -58,6 +58,11 @@ public class BardCountSpwan : MonoBehaviour
             prefab.SetActive(false);
         }
 
+        for (int i = 0; i < UpSppeds.Length; i++)
+        {
+            UpSppeds[i] = 0f;
+        }
+
         BardCount = 0;
         currentPopCount = 0;
         SpwanFlag = false;
