@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-
 public class SR_ItemManager : MonoBehaviour
 {
     public List<SR_ItemType> itemTypes = new List<SR_ItemType>();
