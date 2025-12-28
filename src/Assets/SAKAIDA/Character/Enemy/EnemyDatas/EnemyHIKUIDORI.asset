@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efa25e63bd176fc4a9ad03daaa906cd5, type: 3}
-  m_Name: Enemy2
+  m_Name: EnemyHIKUIDORI
   m_EditorClassIdentifier: 
-  enemyName: "\u5317\u658E\u30AB\u30D6\u30EC"
-  sprite: {fileID: 21300000, guid: e8b24d32dbd60164393142c069e39253, type: 3}
-  maxHP: 300
-  level: 1
+  enemyName: "\u30D2\u30AF\u30A4\u30C9\u30EA"
+  sprite: {fileID: 21300000, guid: 77adbd0cc511eaf44bdc5c3645baa8ad, type: 3}
+  maxHP: 9999999
+  level: 5
