@@ -29,7 +29,7 @@ public class SR_PlayerController : MonoBehaviour
     Vector2 dashStartPos;
 
     [SerializeField] float dashDistance = 3.0f;
-    [SerializeField] TextSystem textSys;
+
 
     public float hototogisuPoint = 0;
 
@@ -134,13 +134,13 @@ public class SR_PlayerController : MonoBehaviour
             gravity = 0;
             rb.velocity = dashDirection * speed;
 
-            float angle = Mathf.Atan2(dashDirection.y, dashDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle + 90f);
+            
 
             float movedDistance =
                 Vector2.Distance(dashStartPos, transform.position);
             effectSpawnChange(true);
             AttackEffectObject.transform.up = dashDirection.normalized;
+            transform.up = dashDirection.normalized;
             if (movedDistance >= dashDistance)
             {
                 Dash = false;
@@ -209,8 +209,7 @@ public class SR_PlayerController : MonoBehaviour
     void GetItem(SR_ItemController item) 
     {
         hototogisuPoint += item.itemType.Point;
-        hototogisuPoint *= item.itemType.pointMultiplier; 
-        textSys.TextSetting((int)hototogisuPoint);
+        hototogisuPoint *= item.itemType.pointMultiplier;
         SR_CameraMove.Instance.Shake(0.1f, 0.2f);
         SR_AudioManager.instance.isPlaySE(audioClips[2]);
         item.ReturnToPool();

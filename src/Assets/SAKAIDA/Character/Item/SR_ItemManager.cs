@@ -49,6 +49,9 @@ public class SR_ItemManager : MonoBehaviour
         SR_ItemController itemController = obj.GetComponent<SR_ItemController>();
         itemController.itemType = GetRandomItemByPriority();
         itemController.spriteRenderer.sprite = itemController.itemType.Image;
+        itemController.spriteRenderer.sortingOrder = itemController.itemType.orderLayer;
+        itemController.circleCollider.radius = itemController.itemType.circleRudius;
+        itemController.transform.localScale = Vector3.one * itemController.itemType.itemSize;
         itemController.rb.velocity = Vector2.right * -5;
     }
     SR_ItemType GetRandomItemByPriority()
@@ -82,6 +85,9 @@ public class SR_ItemManager : MonoBehaviour
 public class SR_ItemType 
 {
     public string Name;
+    public int orderLayer = 0;
+    public float circleRudius = 0.8f;
+    public float itemSize = 1;
     public float Point = 1;
     public float pointMultiplier = 1;
     public float Speed = 3;
