@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64cc3fa0891504d4c84b27ecff43e1c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -212,15 +212,16 @@ MonoBehaviour:
   - {fileID: 9015885047892947280}
   - {fileID: 7308123956590923690}
   - {fileID: 2015850675297629134}
-  MaxUp_Y: 7.5
-  StartUpSpeed: 5
+  MaxUp_Y: 9
+  StartUpSpeed: 5.5
   MinUpSpeed: 6
   MaxUpSpeed: 7
-  PopRange_Y: 2
+  PopRange_Y: 0.2
   Range_X: 5
   SpwanDistanceflame: 4
   TextSystem: {fileID: 0}
-  ResetPos: {x: 0, y: -7, z: 0}
+  ResetPos: {x: 0, y: -6, z: 0}
+  BardCount: 100
 --- !u!95 &6160812887332859009
 Animator:
   serializedVersion: 5

@@ -37,7 +37,7 @@ public class BardCountSpwan : MonoBehaviour
     [SerializeField]
     Vector3 ResetPos = new(){ x = 0, y = -7, z = 0 };
 
-    int BardCount = 100;
+    public int BardCount = 100;
 
     int currentPopCount;
 
@@ -58,6 +58,8 @@ public class BardCountSpwan : MonoBehaviour
             prefab.SetActive(false);
         }
 
+        BardCount = 0;
+        currentPopCount = 0;
         SpwanFlag = false;
     }
 
@@ -76,8 +78,11 @@ public class BardCountSpwan : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!SpwanFlag) 
+        if (!SpwanFlag)
+        {
             return;
+        }
+            
 
         SpwanFlame--;
 
@@ -99,27 +104,27 @@ public class BardCountSpwan : MonoBehaviour
 
                 Vector2 StartPos = new()
                 {
-                    y = transform.position.y + UnityEngine.Random.Range(-PopRange_Y, PopRange_Y),
-                    x = UnityEngine.Random.Range(-Range_X, Range_X)
+                    y = transform.localPosition.y + UnityEngine.Random.Range(-PopRange_Y, PopRange_Y),
+                    x = transform.localPosition.x + UnityEngine.Random.Range(-Range_X, Range_X)
                 };
 
                 UpSppeds[i] += UnityEngine.Random.Range(StartUpSpeed, MinUpSpeed);
-                PrefabPool[i].transform.position = StartPos;
+                PrefabPool[i].transform.localPosition = StartPos;
 
                 currentPopCount++;
                 SpwanFlame = SpwanDistanceflame;
             }
 
-            if (PrefabPool[i].transform.position.y >= MaxUp_Y)
+            if (PrefabPool[i].transform.localPosition.y >= MaxUp_Y)
             {
                 Vector2 StartPos = new()
                 {
-                    y = transform.position.y,
+                    y = transform.localPosition.y,
                     x = UnityEngine.Random.Range(-Range_X, Range_X) * 2
                 };
 
                 UpSppeds[i] += UnityEngine.Random.Range(MinUpSpeed, MaxUpSpeed);
-                PrefabPool[i].transform.position = StartPos;
+                PrefabPool[i].transform.localPosition = StartPos;
 
                 currentPopCount++;
                 SpwanFlame = SpwanDistanceflame;
@@ -140,10 +145,10 @@ public class BardCountSpwan : MonoBehaviour
         }
         */
 
-        PrefabPool[i].transform.position = new()
+        PrefabPool[i].transform.localPosition = new()
         {
-            x = PrefabPool[i].transform.position.x * 0.99f,
-            y = PrefabPool[i].transform.position.y + Time.fixedDeltaTime * UpSppeds[i],
+            x = PrefabPool[i].transform.localPosition.x * 0.99f,
+            y = PrefabPool[i].transform.localPosition.y + Time.fixedDeltaTime * UpSppeds[i],
         };
     }
 }

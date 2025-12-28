@@ -38,7 +38,7 @@ public class BardRainSpwan : MonoBehaviour
     [SerializeField]
     Vector3 ResetPos = new() { x = 0, y = -7, z = 0 };
 
-    int BardCount = 100;
+    public int BardCount = 100;
 
     int currentPopCount;
 
@@ -59,6 +59,7 @@ public class BardRainSpwan : MonoBehaviour
         }
 
         SpwanFlag = false;
+        currentPopCount = 0;
     }
 
     // Start is called before the first frame update
