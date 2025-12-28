@@ -134,13 +134,13 @@ public class SR_PlayerController : MonoBehaviour
             gravity = 0;
             rb.velocity = dashDirection * speed;
 
-            float angle = Mathf.Atan2(dashDirection.y, dashDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle + 90f);
+            
 
             float movedDistance =
                 Vector2.Distance(dashStartPos, transform.position);
             effectSpawnChange(true);
             AttackEffectObject.transform.up = dashDirection.normalized;
+            transform.up = dashDirection.normalized;
             if (movedDistance >= dashDistance)
             {
                 Dash = false;

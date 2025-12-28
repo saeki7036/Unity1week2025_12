@@ -6,6 +6,7 @@ public class SR_ItemController : MonoBehaviour
     public SR_ItemType itemType;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
+    public CircleCollider2D circleCollider;
     GameObject originalPrefab;
     bool returned = false;
 

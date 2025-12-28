@@ -48,16 +48,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dbb275270851d46a4c84fb1a219890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Effect: {fileID: 5770389614084074617, guid: c45fae908e22bb841ab603ea072bc06d, type: 3}
   itemType:
     Name: 
+    orderLayer: 0
+    circleRudius: 0.8
+    itemSize: 1
     Point: 1
+    pointMultiplier: 1
     Speed: 3
     spawnPriority: 1
     Image: {fileID: 0}
     itemType: 0
   rb: {fileID: 2820568918778562718}
   spriteRenderer: {fileID: 7646675819328233223}
+  circleCollider: {fileID: 6200673656346393645}
 --- !u!114 &1179831532031334612
 MonoBehaviour:
   m_ObjectHideFlags: 0
