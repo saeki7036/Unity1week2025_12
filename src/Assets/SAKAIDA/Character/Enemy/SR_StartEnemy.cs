@@ -77,6 +77,9 @@ public class SR_StartEnemy : MonoBehaviour
         playerController.playerAction = SR_PlayerController.PlayerAction.Stay;
         playerController.rb.velocity = Vector2.zero;
         playerController.ComboText.text = "0";
+        playerController.AttackOK = false;
+        enemyManager.nowEnemyLevel++;
+        gameSystem.gameMode = SR_GameSystem.GameMode.PointCollect;
         
         playerController.BounusText.text = "0";
         oneClip = false;
@@ -102,6 +105,7 @@ public class SR_StartEnemy : MonoBehaviour
             startStayCount += Time.fixedDeltaTime;
                 if (start && startStayCount > START_STAY_TIME && !oneClip) 
                 { 
+                playerController.AttackOK = true;
                 EventAnimator.Play("ŠJŽn"); 
                 oneClip = true;
                 SR_AudioManager.instance.isPlaySE(audioClips[0]);

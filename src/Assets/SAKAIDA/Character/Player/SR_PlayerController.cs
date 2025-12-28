@@ -36,6 +36,8 @@ public class SR_PlayerController : MonoBehaviour
     Vector2 dashDirection;
     Vector2 dashStartPos;
 
+    public bool AttackOK = false;
+
     public float Combo = 0;//ƒRƒ“ƒ{
     [SerializeField] float ADD_POINT_MULTIPLY = 0.1f;//‚PƒRƒ“ƒ{“–‚½‚è‚Ìpoint”{—¦
     [SerializeField] float dashDistance = 3.0f;
@@ -65,6 +67,7 @@ public class SR_PlayerController : MonoBehaviour
     public void OnNomalAttack(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
+        if (!AttackOK) return;
         if (gameSystem.gameMode != SR_GameSystem.GameMode.PointCollect) return;
         if (playerAction == PlayerAction.Down ||
             playerAction == PlayerAction.NoAction ||
