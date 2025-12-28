@@ -23,11 +23,13 @@ public class SR_StartEnemy : MonoBehaviour
     [SerializeField] Rigidbody2D EnemyObject_rb;
 
     [SerializeField] Animator EventAnimator;
+    [SerializeField] SpriteRenderer EnemySpriterender;
 
     bool oneClip = false;
 
     SR_GameSystem gameSystem => SR_GameSystem.instance;
     SR_PlayerController playerController => SR_PlayerController.instance;
+    EnemyManager enemyManager => EnemyManager.instance;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,7 @@ public class SR_StartEnemy : MonoBehaviour
     private void FixedUpdate()
     {
         if (gameSystem.gameMode != SR_GameSystem.GameMode.PointCollect) return;
+        enemyChange();
         switch (playerController.playerAction) 
         {
 
@@ -58,6 +61,12 @@ public class SR_StartEnemy : MonoBehaviour
         
         }
 
+    }
+    void enemyChange() 
+    {
+        EnemySpriterender.sprite = enemyManager.SetEnemy.sprite;
+        EnemyHpText.text = enemyManager.SetEnemy.maxHP.ToString();
+        EnemyNameText.text = enemyManager.SetEnemy.enemyName;
     }
     public void PointCollect_Reset()
     {
