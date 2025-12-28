@@ -44,7 +44,7 @@ public class SR_StartEnemy : MonoBehaviour
     }
     public void OnDebug(InputAction.CallbackContext context) 
     { 
-    PointCollect_Reset();
+    //PointCollect_Reset();
     }
     // Update is called once per frame
     private void FixedUpdate()
