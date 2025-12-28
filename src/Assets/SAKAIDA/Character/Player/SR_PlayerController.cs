@@ -29,7 +29,7 @@ public class SR_PlayerController : MonoBehaviour
     Vector2 dashStartPos;
 
     [SerializeField] float dashDistance = 3.0f;
-    [SerializeField] TextSystem textSys;
+
 
     public float hototogisuPoint = 0;
 
@@ -209,8 +209,7 @@ public class SR_PlayerController : MonoBehaviour
     void GetItem(SR_ItemController item) 
     {
         hototogisuPoint += item.itemType.Point;
-        hototogisuPoint *= item.itemType.pointMultiplier; 
-        textSys.TextSetting((int)hototogisuPoint);
+        hototogisuPoint *= item.itemType.pointMultiplier;
         SR_CameraMove.Instance.Shake(0.1f, 0.2f);
         SR_AudioManager.instance.isPlaySE(audioClips[2]);
         item.ReturnToPool();
