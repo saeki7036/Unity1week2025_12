@@ -30,6 +30,8 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] GameObject playerAnimatorBody;
     [SerializeField] GameObject ComboObjects;
 
+    public bool StartScene = false;
+
     public TextMeshProUGUI ComboText;
     [SerializeField] Animator combosAnimator;
     public TextMeshProUGUI BounusText;
@@ -148,13 +150,13 @@ public class SR_PlayerController : MonoBehaviour
         animator.Play("‘Ò‹@");
         if (Dash)
         {
-            SR_AudioManager.instance.BgmSource.Play();
+            if(!StartScene)SR_AudioManager.instance.BgmSource.Play();
             playerAction = PlayerAction.Move;
         }
     }
     public void AddCombo() 
     {
-        
+        if (StartScene) return;
         Combo++;
         float allbounus = (Combo * ADD_POINT_MULTIPLY)*100 ;
         combosAnimator.Play("ƒRƒ“ƒ{Šl“¾",0,0);
