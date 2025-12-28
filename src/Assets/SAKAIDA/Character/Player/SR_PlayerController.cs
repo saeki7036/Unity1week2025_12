@@ -146,16 +146,23 @@ public class SR_PlayerController : MonoBehaviour
     void stayAction() 
     {
         animator.Play("‘Ò‹@");
-        if(Dash)playerAction = PlayerAction.Move;
+        if (Dash)
+        {
+            SR_AudioManager.instance.BgmSource.Play();
+            playerAction = PlayerAction.Move;
+        }
     }
     public void AddCombo() 
     {
+        
+        Combo++;
+        float allbounus = (Combo * ADD_POINT_MULTIPLY)*100 ;
         combosAnimator.Play("ƒRƒ“ƒ{Šl“¾",0,0);
         ComboText.text = Combo.ToString();
-        float allbounus = (Combo * ADD_POINT_MULTIPLY)*100 ;
+        
         BounusText.text = allbounus.ToString("F0");
         comboResetCount = 0;
-        Combo++;
+        
     }
     void moveAction() 
     {
