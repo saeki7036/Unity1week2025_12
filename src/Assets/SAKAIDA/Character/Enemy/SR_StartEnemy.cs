@@ -78,7 +78,9 @@ public class SR_StartEnemy : MonoBehaviour
         playerController.rb.velocity = Vector2.zero;
         playerController.ComboText.text = "0";
         playerController.AttackOK = false;
+        playerController.gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
         enemyManager.nowEnemyLevel++;
+        enemyManager.SetEnemyNow();
         gameSystem.gameMode = SR_GameSystem.GameMode.PointCollect;
         
         playerController.BounusText.text = "0";

@@ -12,6 +12,19 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        SetEnemyNow();
+    }
+
+    public void SetEnemyNow() 
+    {
+        if (nowEnemyLevel < enemyDatas.Count)
+        {
+            
+        }
+        else 
+        {
+            nowEnemyLevel = 0;
+        }
         SetEnemy = enemyDatas[nowEnemyLevel];
     }
 
