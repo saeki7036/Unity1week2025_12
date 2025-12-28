@@ -7500,6 +7500,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1636500538}
     m_Modifications:
+    - target: {fileID: 793629716249409695, guid: ea255ba570354f443839c9642d4175a7, type: 3}
+      propertyPath: BardCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3773174379822466745, guid: ea255ba570354f443839c9642d4175a7, type: 3}
       propertyPath: m_InitialState
       value: 0
