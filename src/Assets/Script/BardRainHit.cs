@@ -45,7 +45,14 @@ public class BardRainHit : MonoBehaviour
             prefab.SetActive(false);
         }
 
+        for (int i = 0; i < MoveSpeeds.Length; i++)
+        {
+            MoveSpeeds[i] = Vector2.zero;
+        }
+
+        BardCount = 0;
         SpwanFlag = false;
+        currentPopCount = 0;
     }
 
     // Start is called before the first frame update

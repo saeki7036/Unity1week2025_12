@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Playables;
+using unityroom.Api;
 
 public class SR_GameSystem : MonoBehaviour
 {
@@ -57,7 +58,9 @@ public class SR_GameSystem : MonoBehaviour
     {
         if(gameMode == GameMode.PointCollect && SR_PlayerController.instance.playerAction == SR_PlayerController.PlayerAction.Finish)
         {
-            stayCoroutine = StartCoroutine(StayCoroutine(SetFlooded));           
+            stayCoroutine = StartCoroutine(StayCoroutine(SetFlooded));
+            bard_1.BardCount = (int)SR_PlayerController.instance.hototogisuPoint;
+            UnityroomApiClient.Instance.SendScore(1, (int)SR_PlayerController.instance.hototogisuPoint, ScoreboardWriteMode.HighScoreDesc);
         }
         else if (gameMode == GameMode.Flooded && playableDirectors[0].state != PlayState.Playing)
         {            
