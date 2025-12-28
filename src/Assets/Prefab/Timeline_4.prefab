@@ -609,6 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5486640346924718662}
   - component: {fileID: 6952939071880318873}
+  - component: {fileID: 5791651728821849957}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -641,7 +642,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: efa0053b998d4c641bba5f748b6aec9f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -727,6 +728,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5791651728821849957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541271057949317674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be7e66c83835294e818045c9bd83baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio: {fileID: 6952939071880318873}
 --- !u!1 &3924223077780183690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,7 +1047,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190335
   m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1284,7 +1298,7 @@ MonoBehaviour:
   MoveSpeed: {x: 30, y: -15}
   MinPos_Y: -11
   SpwanDistanceflame: 5
-  AttackClip: {fileID: 8300000, guid: 77b7eab4fa144ae419a1bc1d1d535c51, type: 3}
+  AttackClip: {fileID: 8300000, guid: dbcf5af63021895459251ae1741f990e, type: 3}
   ResetPos: {x: 0, y: -7, z: 0}
   BardCount: 0
 --- !u!95 &6598114803744947299
