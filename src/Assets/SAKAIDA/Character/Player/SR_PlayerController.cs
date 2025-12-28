@@ -29,6 +29,7 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] GameObject AttackEffectObject;
     [SerializeField] GameObject playerAnimatorBody;
     [SerializeField] GameObject ComboObjects;
+    [SerializeField] SceneChenge sceneChenge;
 
     public bool StartScene = false;
 
@@ -128,6 +129,13 @@ public class SR_PlayerController : MonoBehaviour
         {
             playerAnimatorBody.SetActive(false);
             ComboObjects.SetActive(false);
+        }
+        if (StartScene) 
+        {
+            if (hototogisuPoint > 10) 
+            {
+                sceneChenge.ChangeSceneMainGame();
+            }
         }
     }
     void DownAction() 
