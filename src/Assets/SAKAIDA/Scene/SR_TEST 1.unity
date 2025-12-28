@@ -332,6 +332,7 @@ MonoBehaviour:
   bard_4: {fileID: 154127735}
   enemy_3: {fileID: 589693806}
   enemy_4: {fileID: 1788324903}
+  startEnemy: {fileID: 0}
 --- !u!4 &75362817
 Transform:
   m_ObjectHideFlags: 0
@@ -2246,6 +2247,7 @@ MonoBehaviour:
   EnemyObject_rb: {fileID: 507466084}
   EventAnimator: {fileID: 1185883992}
   EnemySpriterender: {fileID: 1601588025}
+  EnemyBigSpriterender: {fileID: 0}
 --- !u!1 &756220501
 GameObject:
   m_ObjectHideFlags: 0
@@ -11368,6 +11370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDatas:
   - {fileID: 11400000, guid: d95bfdc150d883c4eb22c1890e9bc323, type: 2}
+  - {fileID: 11400000, guid: 3210a377cec97544d982024048268898, type: 2}
   SetEnemy: {fileID: 0}
   nowEnemyLevel: 0
 --- !u!1 &2006537026
