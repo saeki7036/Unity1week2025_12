@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -13,7 +14,8 @@ public class SR_GameSystem : MonoBehaviour
         PointCollect,   // ポイント収集パート
         Flooded,        // 水没パート
         BardShot,       // 鳥発射パート
-        Combat          // 攻撃パート
+        Combat,         // 攻撃パート
+        Clear
     }
     public GameMode gameMode = GameMode.PointCollect;
 
@@ -34,6 +36,9 @@ public class SR_GameSystem : MonoBehaviour
 
     [SerializeField]
     SpriteRenderer enemy_3,enemy_4;
+
+    [SerializeField]
+    SR_StartEnemy startEnemy;
 
     private Coroutine stayCoroutine;
 
@@ -61,6 +66,14 @@ public class SR_GameSystem : MonoBehaviour
         else if (gameMode == GameMode.BardShot && playableDirectors[1].state != PlayState.Playing)
         {
             stayCoroutine = StartCoroutine(StayCoroutine(SetCombat));
+        }
+        else if (gameMode == GameMode.Combat && playableDirectors[2].state == PlayState.Playing)
+        {
+            gameMode = GameMode.Clear;
+        }
+        else if (gameMode == GameMode.Clear && playableDirectors[2].state != PlayState.Playing)
+        {
+            stayCoroutine = StartCoroutine(StayCoroutine(SetNext));
         }
     }
 
@@ -115,5 +128,17 @@ public class SR_GameSystem : MonoBehaviour
         }
             
         gameMode = GameMode.Combat;
+    }
+
+    private void SetNext()
+    {
+        bard_3.ResetPool();
+
+        SR_CameraMove.Instance.AddRange = Vector3.right * 0;
+        SR_PlayerController.instance.ResetScore();
+        EnemyManager.instance.nowEnemyLevel++;
+        startEnemy.PointCollect_Reset();
+
+        gameMode = GameMode.PointCollect;
     }
 }

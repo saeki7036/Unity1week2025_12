@@ -263,4 +263,9 @@ public class SR_PlayerController : MonoBehaviour
         SR_AudioManager.instance.isPlaySE(audioClips[2]);
         item.ReturnToPool();
     }
+    public void ResetScore()
+    {
+        hototogisuPoint = 2;
+        textSystem?.TextSetting((int)hototogisuPoint);
+    }
 }
