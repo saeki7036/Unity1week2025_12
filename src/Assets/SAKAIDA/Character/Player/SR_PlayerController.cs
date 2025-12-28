@@ -13,6 +13,7 @@ public class SR_PlayerController : MonoBehaviour
     [SerializeField] SR_CursorController cursorController;
     public Rigidbody2D rb;
     [SerializeField] Animator animator;
+    [SerializeField] Animator CursorAnimator;
     [SerializeField] float speed = 4;
     [SerializeField] float stopDashDirection = 0.2f;
     [SerializeField] float FINISHPOSITION_Y = -5;
@@ -63,6 +64,8 @@ public class SR_PlayerController : MonoBehaviour
         // マウス方向を取得
         Vector2 dir = (Vector2)cursorController.MousePos - (Vector2)transform.position;
         dashDirection = dir.normalized;
+
+        CursorAnimator.Play("クリック");
 
         dashStartPos = transform.position;
         Dash = true;
