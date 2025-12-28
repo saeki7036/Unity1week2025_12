@@ -25,7 +25,7 @@ public class BardRainHit : MonoBehaviour
     [SerializeField]
     Vector3 ResetPos = new() { x = 0, y = -7, z = 0 };
 
-    int BardCount = 100;
+    public int BardCount = 100;
 
     int currentPopCount;
 
