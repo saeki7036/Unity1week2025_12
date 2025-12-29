@@ -792,6 +792,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1802228586206511034, guid: 022ee74e8bedfba4288d30d8d7920947, type: 3}
+      propertyPath: maxSpawnPerSecond
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802228586206511034, guid: 022ee74e8bedfba4288d30d8d7920947, type: 3}
+      propertyPath: itemTypes.Array.data[0].spawnPriority
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802228586206511034, guid: 022ee74e8bedfba4288d30d8d7920947, type: 3}
+      propertyPath: itemTypes.Array.data[2].spawnPriority
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802228586206511034, guid: 022ee74e8bedfba4288d30d8d7920947, type: 3}
+      propertyPath: itemTypes.Array.data[3].spawnPriority
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1867652954604307106, guid: 022ee74e8bedfba4288d30d8d7920947, type: 3}
       propertyPath: bard_1
       value: 

@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/SAKAIDA/Scene/SR_Title.unity
     guid: db4c2fa6f81f10d41aceeb83771f2ba9
   - enabled: 1
-    path: Assets/SAKAIDA/Scene/SR_TEST 1.unity
+    path: Assets/SAKAIDA/Scene/SR_MainGame.unity
     guid: 1c566d82e48888343b0577670bde3972
   m_configObjects: {}
