@@ -278,6 +278,7 @@ public class SR_PlayerController : MonoBehaviour
     }
     public void ResetScore()
     {
+        Combo = 0;
         hototogisuPoint = 2;
         textSystem?.TextSetting((int)hototogisuPoint);
     }
